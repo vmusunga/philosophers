@@ -11,6 +11,7 @@ ALGO =
 SRCS =	$(ALGO) \
 		$(LIBFT) \
 		$(UTILITY) \
+		philosophers.c \
 		main.c
 
 NAME	=	philosophers

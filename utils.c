@@ -6,11 +6,23 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/04/26 14:19:15 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:27:19 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	destroy(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->philo_nb)
+	{
+		pthread_mutex_destroy(&data->fork[i]);
+		i++;
+	}
+}
 
 int	input_check(char **av)
 {

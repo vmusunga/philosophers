@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/04/26 14:12:24 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:54:07 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,33 @@
 
 typedef struct s_philo
 {
-	int id;
-	int philo;
-	int is_alive;
+	int			id;
+	int			left_fork;
+	int			right_fork;
+	int			last_meal;
+	int			is_alive;
+
+	pthread_t	philo_thread;
 }				t_philo;
 
 typedef struct s_data
 {
 	int philo_nb;
 
-	int tte;
-	int tts;
-	int ttd;
+	int				tte;
+	int				tts;
+	int				ttd;
+	long long		time_origin;
 
-	pthread_t forks;
+	t_philo *philo;
+	pthread_mutex_t	*fork;
 }				t_data;
 
+/// PHILOSOPHERS
+void	*life();
+
 /// UTILS
+void	destroy(t_data *data);
 int		input_check(char **av);
 void	error(char *msg);
 void	free_tab2(char **str);
