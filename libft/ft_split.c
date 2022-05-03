@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 14:46:26 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/04/25 17:10:56 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/03 15:26:16 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_free(char **tab, int x)
 	int	i;
 
 	i = 0;
-	while (i < x && tab[i] != '\0')
+	while (i < x && tab[i])
 	{
 		free(tab[i]);
 		i++;

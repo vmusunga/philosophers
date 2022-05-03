@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:55 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/04/26 16:57:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:47:08 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,29 @@ void	init_struct(t_data *data, char **av)
 		pthread_mutex_init(&data->fork[i], NULL);
 		i++;
 	}
-	
 	data->ttd = ft_atoi(av[2]);
 	data->tte = ft_atoi(av[3]);
 	data->tts = ft_atoi(av[4]);
 }
 
-void	philo_init(t_data *data, char **av)
+void	philo_init(t_data *data)
 {
 	int i;
 
 	i = -1;
-	while (++i < ft_atoi(av[1]))
+	while (++i < data->philo_nb)
 	{
-		if (pthread_create(&data->philo[i].philo_thread, NULL, (void*)&life, &data->philo[i])) // ATTENTION
+		if (pthread_create(&data->philo[i].philo_thread, NULL, &life, &data)) // ATTENTION
 			error("Thread error");
 	}
 	i = -1;
-	while (++i < ft_atoi(av[1]))
+	while (++i < data->philo_nb)
 	{
 		if (pthread_join(data->philo[i].philo_thread, NULL))
 			error("Join thread error");
 	}
 	i = 0;
-	while (&data->philo[i])
+	while (i < data->philo_nb)
 	{
 		data->philo[i].id = i;
 		data->philo[i].is_alive = 1;
@@ -77,9 +76,15 @@ int	main(int ac, char **av)
 		error("Wrong input");
 
 	init_struct(&data, av);
-	philo_init(&data, av);
+	philo_init(&data);
 	destroy(&data);
 
-	// printf("%i, %i, %i, %i", data.philo_nb, data.ttd, data.tte, data.tts);
+	// int i = 0;
+	printf("%i, %i, %i, %i\n", data.philo_nb, data.ttd, data.tte, data.tts);
+	// while (i <= ft_atoi(av[2]))
+	// {
+	// 	printf("philo %d : %i, %i, %i\n", i, data.philo[i].id, data.philo[i].left_fork, data.philo[i].right_fork);
+	// 	i++;
+	// }
 	return (0);
 }
