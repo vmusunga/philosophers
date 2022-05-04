@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:55 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 14:49:44 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 16:15:56 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 int	main(int ac, char **av)
 {
 	t_data data;
-	// t_philo philo;
+	struct timeval start;
 
 	if (ac != 5)
 		error("Wrong input");
 	if (!input_check(av))
 		error("Wrong input");
 
+	gettimeofday(&start, NULL);
 	init_struct(&data, av);
-	philo_init(&data);
+	philo_init(&data, start);
 	destroy(&data);
 
 	// int i = 0;
-	printf("%i, %i, %i, %i, %ld\n", data.philo_nb, data.ttd, data.tte, data.tts, data.philo->start.tv_sec);
+	// printf("%i, %i, %i, %i, %ld\n", data.philo_nb, data.ttd, data.tte, data.tts, data.philo->start.tv_sec);
 	// while (i <= ft_atoi(av[2]))
 	// {
 	// 	printf("philo %d : %i, %i, %i\n", i, data.philo[i].id, data.philo[i].left_fork, data.philo[i].right_fork);

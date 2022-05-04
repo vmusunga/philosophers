@@ -6,13 +6,13 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 14:48:51 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 16:08:30 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long	timeset()
+unsigned long	current_time()
 {
 	unsigned long	time;
 	struct timeval tmp;
@@ -20,6 +20,19 @@ unsigned long	timeset()
 	gettimeofday(&tmp, NULL);
 	time = tmp.tv_sec + (tmp.tv_usec / 1000);
 	return (time);
+}
+
+unsigned long	timediff(t_philo *philo)
+{
+	struct timeval cur;
+	unsigned long diff;
+	unsigned long start;
+
+	gettimeofday(&cur, NULL);
+	start = (philo->start.tv_sec * 1000) + (philo->start.tv_usec / 1000);
+	diff = ((cur.tv_sec * 1000) + (cur.tv_usec / 1000)) - start;
+	// printf("START: %ld - CURRENT: %ld - DIFF %ld\n", start, (cur.tv_sec * 1000) + (cur.tv_usec / 1000), diff);
+	return (diff);
 }
 
 void	destroy(t_data *data)

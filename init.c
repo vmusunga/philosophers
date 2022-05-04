@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/04 14:49:27 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 16:17:29 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_struct(t_data *data, char **av)
 	data->tts = ft_atoi(av[4]);
 }
 
-void	philo_init(t_data *data)
+void	philo_init(t_data *data, struct timeval start)
 {
 	int i;
 
@@ -55,8 +55,11 @@ void	philo_init(t_data *data)
 		data->philo[i].is_alive = 1;
 		data->philo[i].left_fork = i;
 		data->philo[i].right_fork = (i + 1) % data->philo_nb;
+		data->philo[i].start = start;
+
+		// gettimeofday(&data->philo[i].start , NULL);
+		printf("%ld", (data->philo->start.tv_sec * 1000) + (data->philo->start.tv_usec / 1000));
 		gettimeofday(&data->philo[i].last_meal , NULL);
-		gettimeofday(&data->philo[i].start , NULL);
 		i++;
 	}
 	return ;

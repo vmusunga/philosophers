@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 14:51:29 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 16:16:12 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ typedef struct s_data
 
 /// INIT
 void	init_struct(t_data *data, char **av);
-void	philo_init(t_data *data);
+void	philo_init(t_data *data, struct timeval start);
 
 /// PHILOSOPHERS
 void	*life();
 
 /// UTILS
-unsigned long	timeset();
+unsigned long	current_time();
+unsigned long	timediff(t_philo *philo);
 void	destroy(t_data *data);
 int		input_check(char **av);
 void	error(char *msg);
