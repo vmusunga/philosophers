@@ -8,7 +8,7 @@ UTILITY =	utils.c
 
 ALGO =	
 
-SRCS =	$(ALGO) \
+SRCS =	init.c \
 		$(LIBFT) \
 		$(UTILITY) \
 		philosophers.c \

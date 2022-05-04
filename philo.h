@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/03 16:20:49 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 14:51:29 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@
 
 typedef struct s_philo
 {
-	int			id;
-	int			left_fork;
-	int			right_fork;
-	int			last_meal;
-	int			is_alive;
+	int				id;
+	int				left_fork;
+	int				right_fork;
+	int				is_alive;
+	long long		time_o;
 
-	pthread_t	philo_thread;
-}				t_philo;
+	struct timeval	start;
+	struct timeval	last_meal;
+	pthread_t		philo_thread;
+}					t_philo;
 
 typedef struct s_data
 {
@@ -46,16 +48,20 @@ typedef struct s_data
 	int				tte;
 	int				tts;
 	int				ttd;
-	long long		time_origin;
 
 	t_philo *philo;
 	pthread_mutex_t	*fork;
 }				t_data;
 
+/// INIT
+void	init_struct(t_data *data, char **av);
+void	philo_init(t_data *data);
+
 /// PHILOSOPHERS
 void	*life();
 
 /// UTILS
+unsigned long	timeset();
 void	destroy(t_data *data);
 int		input_check(char **av);
 void	error(char *msg);

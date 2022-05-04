@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/04/26 16:27:19 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:48:51 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+unsigned long	timeset()
+{
+	unsigned long	time;
+	struct timeval tmp;
+
+	gettimeofday(&tmp, NULL);
+	time = tmp.tv_sec + (tmp.tv_usec / 1000);
+	return (time);
+}
 
 void	destroy(t_data *data)
 {

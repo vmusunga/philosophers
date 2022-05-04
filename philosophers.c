@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/03 16:50:35 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/04 14:20:32 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,9 @@
 // 	data->time_origin = time_t.tv_sec + (suseconds_t.tv_usec / 100000);
 // }
 
-void	*life()
+void	*life(t_data *data)
 {
-	// int i = 0;
-	// t_data *data;
-	// data = (t_data*)x;
-	
-	// while (i <= data->philo_nb)
-	// {
-	// 	printf("philo %d : %i, %i, %i\n", i, data->philo[i].id, data->philo[i].left_fork, data->philo[i].right_fork);
-	// 	i++;
-	// }
-	printf("COUCOU");
+	printf("%d\n", data->philo_nb);
+
 	return (NULL);
 }
