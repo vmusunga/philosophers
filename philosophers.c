@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/06 15:03:29 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/06 16:13:51 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	timestamp(t_philo *philo, char x)
 		printf("%ld %d %s", current_time(), philo->id, "died");
 }
 
+int	pepsi(t_philo *philo)
+{
+
+	if (current_time() - philo->last_meal >= philo->data->ttd)
+		return(1);
+	return (0);
+}
+
 void	*life(void *x)			///DATA ACCESS ATTEMPT CRASHES
 {
 	t_philo *philo;
@@ -41,7 +49,7 @@ void	*life(void *x)			///DATA ACCESS ATTEMPT CRASHES
 	// printf("\nDATA TEST : %lu\n", philo->data->start);
 
 	/// check_alive
-
+	// printf("TEST PEPSI: %d ", pepsi(philo));
 	/// grab_fork
 
 	/// sleep tts
