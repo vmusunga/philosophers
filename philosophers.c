@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 16:08:26 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/06 15:03:29 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,28 @@ void	timestamp(t_philo *philo, char x)
 		printf("%ld %d %s", current_time(), philo->id, "died");
 }
 
-void	*life(t_data *data)
+void	*life(void *x)			///DATA ACCESS ATTEMPT CRASHES
 {
-	printf("\nLIFE\n");
-	/// grab_fork
-	usleep(600);
-	/// sleep tts
+	t_philo *philo;
+	// t_data *data;
 
-	/// think
+	philo = (t_philo *)x;
+	// data = philo->data;
+	printf("\nLIFE %d\n", philo->id);
+
+	printf("\nleft : %d\n", philo->left_fork);
+	printf("right : %d\n", philo->right_fork);
+	printf("last meal : %lu\n", philo->last_meal);
+	// printf("\nDATA TEST : %lu\n", philo->data->start);
 
 	/// check_alive
-	if (timediff(data->philo) >= (unsigned long)data->ttd * 1000)
-	{
-		usleep(1000);
-		//timestamp(data->philo,'d');
-	}
-	// printf("%i, %i, %i, %i, %ld\n", data->philo_nb, data->ttd, data->tte, data->tts, data->philo->start.tv_sec);
+
+	/// grab_fork
+
+	/// sleep tts
+	usleep(600);
+	
+	/// think
+
 	return (NULL);
 }

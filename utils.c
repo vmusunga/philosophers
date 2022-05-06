@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 16:08:30 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/06 14:40:00 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ unsigned long	current_time()
 	struct timeval tmp;
 
 	gettimeofday(&tmp, NULL);
-	time = tmp.tv_sec + (tmp.tv_usec / 1000);
+	time = (tmp.tv_sec * 1000) + (tmp.tv_usec / 1000);
 	return (time);
 }
 
@@ -29,9 +29,9 @@ unsigned long	timediff(t_philo *philo)
 	unsigned long start;
 
 	gettimeofday(&cur, NULL);
-	start = (philo->start.tv_sec * 1000) + (philo->start.tv_usec / 1000);
+	start = philo->data->start;
 	diff = ((cur.tv_sec * 1000) + (cur.tv_usec / 1000)) - start;
-	// printf("START: %ld - CURRENT: %ld - DIFF %ld\n", start, (cur.tv_sec * 1000) + (cur.tv_usec / 1000), diff);
+	printf("START: %ld - CURRENT: %ld - DIFF: %ld\n", start, (cur.tv_sec * 1000) + (cur.tv_usec / 1000), diff);
 	return (diff);
 }
 

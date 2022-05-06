@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/04 16:16:12 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/06 14:07:34 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_philo
 	int				is_alive;
 	long long		time_o;
 
-	struct timeval	start;
-	struct timeval	last_meal;
+	unsigned long	last_meal;
+	struct s_data	*data;
 	pthread_t		philo_thread;
 }					t_philo;
 
@@ -48,6 +48,7 @@ typedef struct s_data
 	int				tte;
 	int				tts;
 	int				ttd;
+	unsigned long	start;
 
 	t_philo *philo;
 	pthread_mutex_t	*fork;
@@ -55,7 +56,7 @@ typedef struct s_data
 
 /// INIT
 void	init_struct(t_data *data, char **av);
-void	philo_init(t_data *data, struct timeval start);
+void	philo_init(t_data *data);
 
 /// PHILOSOPHERS
 void	*life();

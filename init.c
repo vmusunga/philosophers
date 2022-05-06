@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/04 16:17:29 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/06 14:57:36 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	init_struct(t_data *data, char **av)
 
 	i = 0;
 	data->philo_nb = ft_atoi(av[1]);
+	data->ttd = (ft_atoi(av[2]) * 1000);
+	data->tte = (ft_atoi(av[3]) * 1000);
+	data->tts = (ft_atoi(av[4]) * 1000);
+	data->start = current_time();
 
 	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
 	if (!data->philo)
@@ -31,23 +35,12 @@ void	init_struct(t_data *data, char **av)
 		pthread_mutex_init(&data->fork[i], NULL);
 		i++;
 	}
-	data->ttd = ft_atoi(av[2]);
-	data->tte = ft_atoi(av[3]);
-	data->tts = ft_atoi(av[4]);
 }
 
-void	philo_init(t_data *data, struct timeval start)
+void	philo_init(t_data *data)
 {
 	int i;
 
-	i = -1;
-	while (++i < data->philo_nb)
-	{
-		if (pthread_create(&data->philo[i].philo_thread, NULL, life, &data)) // ATTENTION
-			error("Thread error");
-		if (pthread_join(data->philo[i].philo_thread, NULL))
-			error("Join thread error");
-	}
 	i = 0;
 	while (i < data->philo_nb)
 	{
@@ -55,11 +48,21 @@ void	philo_init(t_data *data, struct timeval start)
 		data->philo[i].is_alive = 1;
 		data->philo[i].left_fork = i;
 		data->philo[i].right_fork = (i + 1) % data->philo_nb;
-		data->philo[i].start = start;
-
-		// gettimeofday(&data->philo[i].start , NULL);
-		printf("%ld", (data->philo->start.tv_sec * 1000) + (data->philo->start.tv_usec / 1000));
-		gettimeofday(&data->philo[i].last_meal , NULL);
+		data->philo[i].last_meal = data->start;
+		i++;
+	}
+	i = 0;
+	while (i < data->philo_nb)
+	{
+		if (pthread_create(&data->philo[i].philo_thread, NULL, life, &data->philo[i])) // ATTENTION
+			error("Thread error");
+		i++;
+	}
+	i = 0;
+	while (i < data->philo_nb)
+	{
+		if (pthread_join(data->philo[i].philo_thread, NULL))
+			error("Join thread error");
 		i++;
 	}
 	return ;
