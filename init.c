@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/06 15:11:39 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/13 14:48:00 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	philo_init(t_data *data)
 		data->philo[i].left_fork = i;
 		data->philo[i].right_fork = (i + 1) % data->philo_nb;
 		data->philo[i].last_meal = data->start;
+		data->philo[i].data = data;
 		i++;
 	}
 	i = 0;
