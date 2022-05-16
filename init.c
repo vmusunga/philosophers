@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/16 15:24:40 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:01:44 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	init_struct(t_data *data, char **av)
 	data->ttd = (ft_atoi(av[2]) * 1000);
 	data->tte = (ft_atoi(av[3]) * 1000);
 	data->tts = (ft_atoi(av[4]) * 1000);
+	data->meals_nb = -1;
+	if (av[5])
+		data->meals_nb = ft_atoi(av[5]);
 	data->start = current_time();
 
 	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
@@ -49,6 +52,7 @@ void	philo_init(t_data *data)
 		data->philo[i].left_fork = i;
 		data->philo[i].right_fork = (i + 1) % data->philo_nb;
 		data->philo[i].last_meal = data->start;
+		data->philo[i].meals = 0;
 		data->philo[i].data = data;
 		i++;
 	}

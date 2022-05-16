@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/16 15:33:00 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:15:44 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	int				left_fork;
 	int				right_fork;
 	int				is_alive;
+	int				meals;
 
 	unsigned long	last_meal;
 	struct s_data	*data;
@@ -42,7 +43,8 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int philo_nb;
+	int				philo_nb;
+	int				meals_nb;
 
 	unsigned long	tte;
 	unsigned long	tts;
