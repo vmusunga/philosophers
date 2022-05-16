@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/13 16:12:29 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/16 15:59:25 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,34 @@
 
 void	timestamp(t_philo *philo, char x)
 {
-	if (x == 'f')
-		printf("%ld %d %s", current_time(), philo->id, "has taken a fork");
+	if (x == 'l')
+		printf("%ld %d %s\n", current_time(), philo->id, "has taken his left fork");
+	if (x == 'r')
+		printf("%ld %d %s\n", current_time(), philo->id, "has taken his right fork");
 	if (x == 'e')
-		printf("%ld %d %s", current_time(), philo->id, "is eating");
+		printf("%ld %d %s\n", current_time(), philo->id, "is eating");
 	if (x == 's')
-		printf("%ld %d %s", current_time(), philo->id, "is sleeping");
+		printf("%ld %d %s\n", current_time(), philo->id, "is sleeping");
 	if (x == 't')
-		printf("%ld %d %s", current_time(), philo->id, "is thinking");
+		printf("%ld %d %s\n", current_time(), philo->id, "is thinking");
 	if (x == 'd')
-		printf("%ld %d %s", current_time(), philo->id, "died");
+		printf("%ld %d %s\n", current_time(), philo->id, "died");
 }
 
-int	pepsi(t_philo *philo)
+int	pepsi(t_data *data)
 {
-	if (current_time() - philo->last_meal >= philo->data->ttd)
+	int i;
+
+	i = 0;
+	while (i < data->philo_nb)
 	{
-		philo->is_alive = 0;
-		timestamp(philo, 'd');
-		return(1);
+		if (current_time() - data->philo[i].last_meal >= data->ttd)
+		{
+			timestamp(data->philo, 'd');
+			data->philo->is_alive = 0;
+			return(1);
+		}
+		i++;
 	}
 	return (0);
 }
@@ -40,9 +49,12 @@ int	pepsi(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->data->fork[philo->left_fork]))
-		timestamp(philo, 'f');
+		error("left fork error");
+	timestamp(philo, 'r');
 	if (pthread_mutex_lock(&philo->data->fork[philo->right_fork]))
-		timestamp(philo, 'f');
+		error("left fork error");
+	timestamp(philo, 'l');
+	timestamp(philo, 'f');
 	timestamp(philo, 'e');
 	usleep(philo->data->tte);
 	philo->last_meal = current_time();
@@ -53,19 +65,22 @@ void	eat(t_philo *philo)
 
 void	ft_sleep(t_philo *philo)
 {
-	usleep(philo->data->tts);
 	timestamp(philo, 's');
+	usleep(philo->data->tts);
 	return ;
 }
 
 void	*life(void *x)			///DATA ACCESS ATTEMPT CRASHES
 {
 	t_philo *philo;
-	// t_data *data;
 
 	philo = (t_philo *)x;
+	if (philo->id % 2)
+		usleep(15000);
 	while (philo->is_alive)
 	{
+		if (pepsi(philo->data))
+			error("ISDED\n");
 		eat(philo);
 		ft_sleep(philo);
 		timestamp(philo, 't');
