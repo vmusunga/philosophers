@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/06 14:40:00 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/17 16:08:27 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ unsigned long	current_time()
 	return (time);
 }
 
-unsigned long	timediff(t_philo *philo)
+unsigned long	timediff(unsigned long start)
 {
 	struct timeval cur;
 	unsigned long diff;
-	unsigned long start;
+	// unsigned long start;
 
 	gettimeofday(&cur, NULL);
-	start = philo->data->start;
+	//start = philo->data->start;
 	diff = ((cur.tv_sec * 1000) + (cur.tv_usec / 1000)) - start;
-	printf("START: %ld - CURRENT: %ld - DIFF: %ld\n", start, (cur.tv_sec * 1000) + (cur.tv_usec / 1000), diff);
 	return (diff);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/16 17:15:44 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:08:54 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 
 	t_philo			*philo;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	eating;
 }				t_data;
 
 /// INIT
@@ -65,7 +66,7 @@ void	*life();
 
 /// UTILS
 unsigned long	current_time();
-unsigned long	timediff(t_philo *philo);
+unsigned long	timediff(unsigned long start);
 void	destroy(t_data *data);
 int		input_check(char **av);
 void	error(char *msg);

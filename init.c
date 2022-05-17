@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/16 18:01:44 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:34:27 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	philo_init(t_data *data)
 			error("Thread error");
 		i++;
 	}
+	pepsi(data);
 	i = 0;
 	while (i < data->philo_nb)
 	{
