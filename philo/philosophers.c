@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/19 16:02:16 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:13:31 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	timestamp(t_philo *philo, char x)
 	if (!philo->data->dead)
 	{
 		if (x == 'l')
-			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken his left fork");
+			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken a fork");
 		if (x == 'r')
-			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken his right fork");
+			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken a fork");
 		if (x == 'e')
 			printf("%ld %d %s\n", timediff(start), philo->id + 1, "is eating");
 		if (x == 's')
@@ -46,12 +46,13 @@ int	pepsi(t_data *data) //REDO
 	while (!data->dead)
 	{
 		i = 0;
-		// printf("TAMERE\n");
 		while (i < data->philo_nb)
 		{
+			// printf("%d	TTD: %ld -- TIMEDIFF: %ld\n", data->philo[i].id, data->ttd, timediff(data->philo[i].last_meal));
 			pthread_mutex_lock(&data->death);
 			if (timediff(data->philo[i].last_meal) >= data->ttd)
 			{
+				timestamp(data->philo, 'x');
 				data->dead = -1;
 				error("GAME OVER");
 			}
@@ -62,7 +63,9 @@ int	pepsi(t_data *data) //REDO
 			count++;
 		if (count == data->philo_nb)
 		{
+			pthread_mutex_lock(&data->death);
 			data->dead = 1;
+			pthread_mutex_unlock(&data->death);
 			error("YOU WIN");
 		}
 	}
@@ -71,7 +74,7 @@ int	pepsi(t_data *data) //REDO
 
 void	eat(t_philo *philo)
 {
-	if (pthread_mutex_lock(&philo->data->fork[philo->left_fork]))	///FORKS
+	if (pthread_mutex_lock(&philo->data->fork[philo->left_fork]))	/// FORKS
 		error("left fork error");
 	timestamp(philo, 'r');
 	if (pthread_mutex_lock(&philo->data->fork[philo->right_fork]))
@@ -102,7 +105,7 @@ void	ft_sleep(t_philo *philo, unsigned long time)
 	return ;
 }
 
-void	*life(void *x)			///DATA ACCESS ATTEMPT CRASHES
+void	*life(void *x)
 {
 	t_philo *philo;
 

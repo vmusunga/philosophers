@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:55 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/17 16:33:48 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:15:25 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 int	main(int ac, char **av)
 {
-	t_data data;
+	t_data	data;
 
 	if (ac != 5 && ac != 6)
 		error("Wrong input");
-	if (!input_check(av))
-		error("Wrong input");
+	input_check(av);
 
 	init_struct(&data, av);
 	philo_init(&data);
-	// pepsi(&data);
+	destroy(&data);
 	return (0);
 }

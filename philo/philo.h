@@ -6,12 +6,12 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/19 16:08:53 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:15:56 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -27,13 +27,11 @@
 
 # include "libft/libft.h"
 
-
 typedef struct s_philo
 {
 	int				id;
 	int				left_fork;
 	int				right_fork;
-	// int				is_alive;
 	int				meals;
 
 	unsigned long	last_meal;
@@ -54,7 +52,6 @@ typedef struct s_data
 
 	t_philo			*philo;
 	pthread_mutex_t	*fork;
-	// pthread_mutex_t	eating;
 	pthread_mutex_t	death;
 	pthread_mutex_t	writing;
 	pthread_mutex_t	meal_time;
@@ -62,19 +59,18 @@ typedef struct s_data
 }				t_data;
 
 /// INIT
-void	init_struct(t_data *data, char **av);
-void	philo_init(t_data *data);
+void			init_struct(t_data *data, char **av);
+void			philo_init(t_data *data);
 
 /// PHILOSOPHERS
-int	pepsi(t_data *data);
-void	*life();
+int				pepsi(t_data *data);
+void			*life(void*);
 
 /// UTILS
-unsigned long	current_time();
+unsigned long	current_time(void);
 unsigned long	timediff(unsigned long start);
 void			destroy(t_data *data);
-int				input_check(char **av);
+void			input_check(char **av);
 void			error(char *msg);
-void			free_tab(char *str, char *str2);
 
 #endif
