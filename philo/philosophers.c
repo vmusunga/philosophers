@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/20 15:13:31 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/20 16:00:21 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	timestamp(t_philo *philo, char x)
 	return ;
 }
 
-int	pepsi(t_data *data) //REDO
+int	pepsi(t_data *data)
 {
 	int i;
 	int count;
@@ -50,7 +50,7 @@ int	pepsi(t_data *data) //REDO
 		{
 			// printf("%d	TTD: %ld -- TIMEDIFF: %ld\n", data->philo[i].id, data->ttd, timediff(data->philo[i].last_meal));
 			pthread_mutex_lock(&data->death);
-			if (timediff(data->philo[i].last_meal) >= data->ttd)
+			if (timediff(data->philo[i].last_meal) > data->ttd)
 			{
 				timestamp(data->philo, 'x');
 				data->dead = -1;
@@ -59,6 +59,8 @@ int	pepsi(t_data *data) //REDO
 			pthread_mutex_unlock(&data->death);
 			i++;
 		}
+		if (data->dead)
+			break;
 		if (data->philo->meals == data->meals_nb)
 			count++;
 		if (count == data->philo_nb)
