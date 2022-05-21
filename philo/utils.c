@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/21 15:15:39 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/21 17:13:42 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,18 @@ void	destroy(t_data *data)
 	i = 0;
 	while (i < data->philo_nb)
 	{
-		pthread_mutex_destroy(&data->fork[i]);
-		if (data->philo)							/// in/out loop?
-			free(data->philo);
+		if (pthread_mutex_destroy(&data->fork[i]))
+			error("Mutex destoroy");
 		i++;
 	}
-	pthread_mutex_destroy(&data->death);
-	pthread_mutex_destroy(&data->writing);
-	pthread_mutex_destroy(&data->meal_time);
-	pthread_mutex_destroy(&data->meal_update);
-	if (data)
-		free(data);
+	if (pthread_mutex_destroy(&data->death))
+		error("Mutex destroy");
+	if (pthread_mutex_destroy(&data->writing))
+		error("Mutex destroy");
+	if (pthread_mutex_destroy(&data->meal_time))
+		error("Mutex destroy");
+	if (pthread_mutex_destroy(&data->meal_update))
+		error("Mutex destroy");
 	return ;
 }
 
