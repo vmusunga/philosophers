@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/20 15:08:14 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:15:39 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ unsigned long	current_time(void)
 unsigned long	timediff(unsigned long start)
 {
 	unsigned long	diff;
-	// printf("start: %ld -- current: %ld\n", start, current_time());
 	diff = (current_time() - start);
 	return (diff);
 }
@@ -64,6 +63,16 @@ void	input_check(char **av)
 	}
 	if (ft_atoi(av[1]) > 200)
 		error("Bruh.");
+	return ;
+}
+
+void	game_over(t_philo *philo)
+{
+	unsigned long	start;
+
+	start = philo->data->start;
+	printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
+	philo->data->dead = -1;
 	return ;
 }
 

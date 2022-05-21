@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/20 14:15:56 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:10:30 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void			philo_init(t_data *data);
 
 /// PHILOSOPHERS
 int				pepsi(t_data *data);
+void			game_over(t_philo *philo);
+void			ft_sleep(t_philo *philo, unsigned long time);
 void			*life(void*);
 
 /// UTILS
