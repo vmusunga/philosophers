@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 18:22:53 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:33:32 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned long	current_time(void)
 unsigned long	timediff(unsigned long start)
 {
 	unsigned long	diff;
+
 	diff = (current_time() - start);
 	return (diff);
 }
@@ -51,22 +52,6 @@ int	destroy(t_data *data)
 	return (1);
 }
 
-void	input_check(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-	{
-		if (!isdigit_check(av[i]))
-			error("Only digits allowed");
-		i++;
-	}
-	if (ft_atoi(av[1]) > 200)
-		error("Bruh.");
-	return ;
-}
-
 int	game_over(t_philo *philo, int code)
 {
 	unsigned long	start;
@@ -79,7 +64,7 @@ int	game_over(t_philo *philo, int code)
 		printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
 	if (code == 1)
 		printf("%ld %d %s\n", timediff(start), philo->id + 1, "ate enough");
-	return (0);		//exit() works!
+	return (0);
 }
 
 int	error(char *msg)

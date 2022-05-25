@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 18:13:17 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 18:56:19 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			*life(void*);
 /// UTILS
 int				error(char *msg);
 int				destroy(t_data *data);
-void			input_check(char **av);
+int			input_check(char **av);
 unsigned long	current_time(void);
 unsigned long	timediff(unsigned long start);
 

@@ -16,7 +16,7 @@ SRCS =	init.c \
 
 NAME	=	philosophers
 CC		=	gcc
-FLAGS	=	-Wall -Werror -Wextra -pthread -fsanitize=address
+FLAGS	=	-Wall -Werror -Wextra -pthread 
 INCLUDE =	-I include
 OBJS	=	$(SRCS:.c=.o)
 EXEC = philo
@@ -38,3 +38,5 @@ fclean:		clean
 			$(RM) $(EXEC)
 
 re:			fclean all
+
+#-fsanitize=address

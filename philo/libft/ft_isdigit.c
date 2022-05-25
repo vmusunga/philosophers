@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:58 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/20 14:10:48 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:32:50 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	ft_isdigit(int c)
 {
@@ -27,8 +28,12 @@ int	isdigit_check(char *sth)
 	i = 0;
 	while (sth[i])
 	{
-		if (sth[i] < '0' && sth[i] > '9')
+		// printf("CHECK: %c\n", sth[i]);
+		if (sth[i] < '0' && '9' < sth[i])
+		{
+			// printf("WTF\n");
 			return (0);
+		}
 		i++;
 	}
 	return (1);

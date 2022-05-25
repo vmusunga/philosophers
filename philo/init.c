@@ -6,11 +6,36 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/25 18:31:31 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:25:43 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	input_check(char **av)
+{
+	int	i;
+
+	i = 1;
+	while (av[i])
+	{
+		if (!isdigit_check(av[i]))
+			return (error("Only digits allowed"));
+		i++;
+	}
+	if (ft_atoi(av[1]) > 200)
+		return (error("Bruh."));
+	if (ft_atoi(av[1]) <= 0 || ft_atoi(av[2]) < 60 || ft_atoi(av[3]) < 60
+		|| ft_atoi(av[4]) < 60)
+		return (error("Under minimal values"));
+	if (ft_atoi(av[1]) == 1)
+	{
+		usleep(ft_atoi(av[2]));
+		printf("%d %d %s\n", ft_atoi(av[2]), 1, "died");
+		return (0);
+	}
+	return (1);
+}
 
 int	init_struct(t_data *data, char **av)
 {
@@ -23,7 +48,7 @@ int	init_struct(t_data *data, char **av)
 	data->tts = (ft_atoi(av[4]));
 	data->dead = 0;
 	data->meals_nb = -1;
-	if (av[5])
+	if (av[5] && ft_atoi(av[5]) > 0)
 		data->meals_nb = ft_atoi(av[5]);
 	data->start = current_time();
 	data->philo = malloc(sizeof(t_philo) * data->philo_nb);

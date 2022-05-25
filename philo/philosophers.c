@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 18:46:46 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:17:30 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int	pepsi(t_data *data)
 
 void	eat(t_philo *philo)
 {
-	if (pthread_mutex_lock(&philo->data->fork[philo->left_fork]))	/// FORKS
+	if (pthread_mutex_lock(&philo->data->fork[philo->left_fork]))
 		error("left fork error");
 	timestamp(philo, 'r');
 	if (pthread_mutex_lock(&philo->data->fork[philo->right_fork]))
 		error("left fork error");
 	timestamp(philo, 'l');
 
-	timestamp(philo, 'e');											/// EATING
+	timestamp(philo, 'e');
 	pthread_mutex_lock(&philo->data->meal_time);
 	philo->last_meal = current_time();
 	pthread_mutex_unlock(&philo->data->meal_time);
@@ -97,7 +97,7 @@ void	eat(t_philo *philo)
 	return ;
 }
 
-void	ft_sleep(t_philo *philo, unsigned long time)								/// stops sleeping too early?
+void	ft_sleep(t_philo *philo, unsigned long time)
 {
 	unsigned long start;
 	int dead;
