@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/21 17:13:42 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 18:22:53 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ unsigned long	timediff(unsigned long start)
 	return (diff);
 }
 
-void	destroy(t_data *data)
+int	destroy(t_data *data)
 {
 	int	i;
 
@@ -37,18 +37,18 @@ void	destroy(t_data *data)
 	while (i < data->philo_nb)
 	{
 		if (pthread_mutex_destroy(&data->fork[i]))
-			error("Mutex destoroy");
+			error("Mutex destoroy5");
 		i++;
 	}
 	if (pthread_mutex_destroy(&data->death))
-		error("Mutex destroy");
+		error("Mutex destroy1");
 	if (pthread_mutex_destroy(&data->writing))
-		error("Mutex destroy");
+		error("Mutex destroy2");
 	if (pthread_mutex_destroy(&data->meal_time))
-		error("Mutex destroy");
+		error("Mutex destroy3");
 	if (pthread_mutex_destroy(&data->meal_update))
-		error("Mutex destroy");
-	return ;
+		error("Mutex destroy4");
+	return (1);
 }
 
 void	input_check(char **av)
@@ -67,19 +67,24 @@ void	input_check(char **av)
 	return ;
 }
 
-void	game_over(t_philo *philo)
+int	game_over(t_philo *philo, int code)
 {
 	unsigned long	start;
 
 	start = philo->data->start;
-	printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
-	philo->data->dead = -1;
-	return ;
+	pthread_mutex_lock(&philo->data->death);
+	philo->data->dead = code;
+	pthread_mutex_unlock(&philo->data->death);
+	if (code == -1)
+		printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
+	if (code == 1)
+		printf("%ld %d %s\n", timediff(start), philo->id + 1, "ate enough");
+	return (0);		//exit() works!
 }
 
-void	error(char *msg)
+int	error(char *msg)
 {
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
-	exit(EXIT_SUCCESS);
+	return (0);
 }

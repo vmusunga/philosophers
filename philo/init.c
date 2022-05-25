@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/20 15:00:36 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:31:31 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_struct(t_data *data, char **av)
+int	init_struct(t_data *data, char **av)
 {
 	int	i;
 
@@ -28,18 +28,19 @@ void	init_struct(t_data *data, char **av)
 	data->start = current_time();
 	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
 	if (!data->philo)
-		error("Malloc error");
+		return (error("Malloc error"));
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
 	if (!data->fork)
-		error("Malloc error");
+		return (error("Malloc error"));
 	while (i < data->philo_nb)
 	{
 		pthread_mutex_init(&data->fork[i], NULL);
 		i++;
 	}
+	return (1);
 }
 
-void	philo_init(t_data *data)
+int	philo_init(t_data *data)
 {
 	int	i;
 
@@ -57,12 +58,13 @@ void	philo_init(t_data *data)
 	while (++i < data->philo_nb)
 	{
 		if (pthread_create(&data->philo[i].philo_thread, NULL, life, &data->philo[i]))
-			error("Thread error");
+			return (error("Thread error"));
 	}
-	pepsi(data);
+	if (!pepsi(data))
+		return (0);
 	i = 0;
 	while (i < data->philo_nb)
 		if (pthread_join(data->philo[i++].philo_thread, NULL))
-			error("Join thread error");
-	return ;
+			return (error("Join thread error"));
+	return (1);
 }

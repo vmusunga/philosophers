@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/21 15:29:36 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 18:46:46 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,20 @@ int	pepsi(t_data *data)
 		{
 			pthread_mutex_lock(&data->death);
 			if (timediff(data->philo[i].last_meal) > data->ttd)
-			{
-				game_over(data->philo);
-				// data->dead = -1;
-				// error("GAME OVER");
-			}
+				return (game_over(data->philo, -1));
 			pthread_mutex_unlock(&data->death);
 			pthread_mutex_lock(&data->meal_update);
 			if (data->meals_nb != -1 && data->philo[i].meals >= data->meals_nb)
-			{
-				// if (count == data->philo_nb - 1)
 				count++;
-			}
 			pthread_mutex_unlock(&data->meal_update);
 			i++;
 		}
 		if (data->dead)
 			break;
 		if (count == data->philo_nb)
-		{
-			pthread_mutex_lock(&data->death);
-			data->dead = 1;
-			pthread_mutex_unlock(&data->death);
-			error("YOU WIN");
-		}
+			return (game_over(data->philo, 1));
 	}
-	return (0);
+	return (1);
 }
 
 void	eat(t_philo *philo)
@@ -120,7 +108,6 @@ void	ft_sleep(t_philo *philo, unsigned long time)								/// stops sleeping too 
 	pthread_mutex_unlock(&philo->data->death);
 	while(!dead)
 	{
-		// printf("%d	Sleeping : %ld	tts: %ld\n", philo->id, timediff(now), time);
 		if (timediff(start) >= time)
 			break;
 		usleep(50);
@@ -136,8 +123,7 @@ void	*life(void *x)
 	philo = (t_philo *)x;
 	if (philo->id % 2)
 		usleep(15000);
-	// while (!philo->data->dead)
-	dead = 0;
+	dead = philo->data->dead;
 	while (!dead)
 	{
 		eat(philo);

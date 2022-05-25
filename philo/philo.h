@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/21 15:10:30 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 18:13:17 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ typedef struct s_data
 }				t_data;
 
 /// INIT
-void			init_struct(t_data *data, char **av);
-void			philo_init(t_data *data);
+int				init_struct(t_data *data, char **av);
+int				philo_init(t_data *data);
 
 /// PHILOSOPHERS
 int				pepsi(t_data *data);
-void			game_over(t_philo *philo);
+int				game_over(t_philo *philo, int code);
 void			ft_sleep(t_philo *philo, unsigned long time);
 void			*life(void*);
 
 /// UTILS
+int				error(char *msg);
+int				destroy(t_data *data);
+void			input_check(char **av);
 unsigned long	current_time(void);
 unsigned long	timediff(unsigned long start);
-void			destroy(t_data *data);
-void			input_check(char **av);
-void			error(char *msg);
 
 #endif
