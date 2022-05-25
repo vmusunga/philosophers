@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 19:17:30 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:43:27 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	timestamp(t_philo *philo, char x)
 {
-	unsigned long start;
-	int dead;
+	unsigned long	start;
+	int				dead;
 
 	start = philo->data->start;
 	pthread_mutex_lock(&philo->data->writing);
@@ -43,11 +43,10 @@ void	timestamp(t_philo *philo, char x)
 
 int	pepsi(t_data *data)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
-
 	while (!data->dead)
 	{
 		i = 0;
@@ -64,7 +63,7 @@ int	pepsi(t_data *data)
 			i++;
 		}
 		if (data->dead)
-			break;
+			break ;
 		if (count == data->philo_nb)
 			return (game_over(data->philo, 1));
 	}
@@ -79,18 +78,14 @@ void	eat(t_philo *philo)
 	if (pthread_mutex_lock(&philo->data->fork[philo->right_fork]))
 		error("left fork error");
 	timestamp(philo, 'l');
-
 	timestamp(philo, 'e');
 	pthread_mutex_lock(&philo->data->meal_time);
 	philo->last_meal = current_time();
 	pthread_mutex_unlock(&philo->data->meal_time);
-
 	ft_sleep(philo, philo->data->tte);
-
 	pthread_mutex_lock(&philo->data->meal_update);
 	philo->meals++;
 	pthread_mutex_unlock(&philo->data->meal_update);
-	
 	pthread_mutex_unlock(&philo->data->fork[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->fork[philo->right_fork]);
 	usleep(100);
@@ -99,17 +94,17 @@ void	eat(t_philo *philo)
 
 void	ft_sleep(t_philo *philo, unsigned long time)
 {
-	unsigned long start;
-	int dead;
+	unsigned long	start;
+	int				dead;
 
 	start = current_time();
 	pthread_mutex_lock(&philo->data->death);
 	dead = philo->data->dead;
 	pthread_mutex_unlock(&philo->data->death);
-	while(!dead)
+	while (!dead)
 	{
 		if (timediff(start) >= time)
-			break;
+			break ;
 		usleep(50);
 	}
 	return ;
@@ -117,8 +112,8 @@ void	ft_sleep(t_philo *philo, unsigned long time)
 
 void	*life(void *x)
 {
-	t_philo *philo;
-	int dead;
+	t_philo	*philo;
+	int		dead;
 
 	philo = (t_philo *)x;
 	if (philo->id % 2)
@@ -131,7 +126,7 @@ void	*life(void *x)
 		dead = philo->data->dead;
 		pthread_mutex_unlock(&philo->data->death);
 		if (dead)
-			break;
+			break ;
 		timestamp(philo, 's');
 		ft_sleep(philo, philo->data->tts);
 		timestamp(philo, 't');

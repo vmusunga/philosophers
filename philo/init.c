@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/25 19:25:43 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:36:28 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int	philo_init(t_data *data)
 	i = -1;
 	while (++i < data->philo_nb)
 	{
-		if (pthread_create(&data->philo[i].philo_thread, NULL, life, &data->philo[i]))
+		if (pthread_create(&data->philo[i].philo_thread, NULL,
+				life, &data->philo[i]))
 			return (error("Thread error"));
 	}
 	if (!pepsi(data))

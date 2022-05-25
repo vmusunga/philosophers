@@ -6,7 +6,7 @@
 /*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 18:56:19 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/25 19:39:35 by vic              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int				philo_init(t_data *data);
 int				pepsi(t_data *data);
 int				game_over(t_philo *philo, int code);
 void			ft_sleep(t_philo *philo, unsigned long time);
-void			*life(void*);
+void			*life(void *x);
 
 /// UTILS
 int				error(char *msg);
 int				destroy(t_data *data);
-int			input_check(char **av);
-unsigned long	current_time(void);
+int				input_check(char **av);
+unsigned long	current_time(void x);
 unsigned long	timediff(unsigned long start);
 
 #endif
