@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:40:48 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 19:39:35 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/28 15:29:31 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 
 /// INIT
 int				init_struct(t_data *data, char **av);
+int				mutex_init(t_data *data);
 int				philo_init(t_data *data);
 
 /// PHILOSOPHERS
@@ -72,7 +73,7 @@ void			*life(void *x);
 int				error(char *msg);
 int				destroy(t_data *data);
 int				input_check(char **av);
-unsigned long	current_time(void x);
+unsigned long	current_time(void);
 unsigned long	timediff(unsigned long start);
 
 #endif

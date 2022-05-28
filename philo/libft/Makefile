@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vmusunga <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/19 11:57:02 by vmusunga          #+#    #+#              #
-#    Updated: 2021/01/22 16:42:39 by vmusunga         ###   ########.fr        #
+#    Updated: 2022/05/28 15:07:14 by vmusunga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ OBJS_BONUS =	$(BONUS:.c=.o)
 NAME	=		libft.a
 CC		=		gcc
 LIBC	=		ar rc
-CFLAGS	=		-Wall -Werror -Wextra
+CFLAGS	=		-Wall -Werror -Wextra -fsanitize=address
 RM		=		rm -f
 .c.o:
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)

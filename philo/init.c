@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/25 19:36:28 by vic              ###   ########.fr       */
+/*   Updated: 2022/05/28 15:37:15 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,30 @@ int	input_check(char **av)
 		usleep(ft_atoi(av[2]));
 		printf("%d %d %s\n", ft_atoi(av[2]), 1, "died");
 		return (0);
+	}
+	return (1);
+}
+
+int	mutex_init(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (pthread_mutex_init(&data->death, NULL))
+		return (error("ICIMalloc error"));
+	if (pthread_mutex_init(&data->writing, NULL))
+		return (error("Malloc error"));
+	if (pthread_mutex_init(&data->meal_time, NULL))
+		return (error("Malloc error"));
+	if (pthread_mutex_init(&data->meal_update, NULL))
+		return (error("Malloc error"));
+	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
+	if (!data->fork)
+		return (error("Malloc error"));
+	while (i < data->philo_nb)
+	{
+		pthread_mutex_init(&data->fork[i], NULL);
+		i++;
 	}
 	return (1);
 }
