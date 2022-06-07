@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vic <vic@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/25 19:43:27 by vic              ###   ########.fr       */
+/*   Updated: 2022/06/07 12:56:12 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	pepsi(t_data *data)
 	int	i;
 	int	count;
 
-	count = 0;
 	while (!data->dead)
 	{
 		i = 0;
+		count = 0;
 		while (i < data->philo_nb)
 		{
 			pthread_mutex_lock(&data->death);
@@ -62,10 +62,10 @@ int	pepsi(t_data *data)
 			pthread_mutex_unlock(&data->meal_update);
 			i++;
 		}
-		if (data->dead)
-			break ;
 		if (count == data->philo_nb)
 			return (game_over(data->philo, 1));
+		if (data->dead)
+			break ;
 	}
 	return (1);
 }

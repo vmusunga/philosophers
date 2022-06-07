@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/05/28 15:37:15 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:02:23 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	input_check(char **av)
 	if (ft_atoi(av[1]) > 200)
 		return (error("Bruh."));
 	if (ft_atoi(av[1]) <= 0 || ft_atoi(av[2]) < 60 || ft_atoi(av[3]) < 60
-		|| ft_atoi(av[4]) < 60)
+		|| ft_atoi(av[4]) < 60 || (av[5] && ft_atoi(av[5]) <= 0))
 		return (error("Under minimal values"));
 	if (ft_atoi(av[1]) == 1)
 	{
@@ -66,7 +66,7 @@ int	init_struct(t_data *data, char **av)
 	int	i;
 
 	i = 0;
-	data->philo_nb = ft_atoi(av[1]);
+	data->philo_nb = (ft_atoi(av[1]));
 	data->ttd = (ft_atoi(av[2]));
 	data->tte = (ft_atoi(av[3]));
 	data->tts = (ft_atoi(av[4]));
@@ -75,10 +75,10 @@ int	init_struct(t_data *data, char **av)
 	if (av[5] && ft_atoi(av[5]) > 0)
 		data->meals_nb = ft_atoi(av[5]);
 	data->start = current_time();
-	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
+	data->philo = malloc(sizeof(t_philo) * data->philo_nb + 1);
 	if (!data->philo)
 		return (error("Malloc error"));
-	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
+	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb + 1);
 	if (!data->fork)
 		return (error("Malloc error"));
 	while (i < data->philo_nb)
