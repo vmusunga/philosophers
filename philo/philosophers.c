@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/06/07 12:56:12 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:52:11 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ void	timestamp(t_philo *philo, char x)
 	pthread_mutex_unlock(&philo->data->death);
 	if (!dead)
 	{
-		if (x == 'l')
-			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken a fork");
-		if (x == 'r')
-			printf("%ld %d %s\n", timediff(start), philo->id + 1, "has taken a fork");
+		if (x == 'l' || x == 'r')
+			printf("%ld %d %s\n", timediff(start),
+				philo->id + 1, "has taken a fork");
 		if (x == 'e')
 			printf("%ld %d %s\n", timediff(start), philo->id + 1, "is eating");
 		if (x == 's')
