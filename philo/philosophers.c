@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:45 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/06/07 13:52:11 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:44:59 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	timestamp(t_philo *philo, char x)
 			printf("%ld %d %s\n", timediff(start), philo->id + 1, "is sleeping");
 		if (x == 't')
 			printf("%ld %d %s\n", timediff(start), philo->id + 1, "is thinking");
-		if (x == 'd')
-			printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
 	}
 	pthread_mutex_unlock(&philo->data->writing);
 	return ;
@@ -85,9 +83,8 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->data->meal_update);
 	philo->meals++;
 	pthread_mutex_unlock(&philo->data->meal_update);
-	pthread_mutex_unlock(&philo->data->fork[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->fork[philo->right_fork]);
-	usleep(100);
+	pthread_mutex_unlock(&philo->data->fork[philo->left_fork]);
 	return ;
 }
 
@@ -129,6 +126,9 @@ void	*life(void *x)
 		timestamp(philo, 's');
 		ft_sleep(philo, philo->data->tts);
 		timestamp(philo, 't');
+		pthread_mutex_unlock(&philo->data->death);
+		dead = philo->data->dead;
+		pthread_mutex_unlock(&philo->data->death);
 		usleep(500);
 	}
 	return (NULL);

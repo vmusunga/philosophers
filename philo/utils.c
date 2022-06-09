@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:32:56 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/05/28 15:14:10 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:12:39 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,31 @@ unsigned long	timediff(unsigned long start)
 	return (diff);
 }
 
-int	destroy(t_data *data)
+int	destroy(t_data *data)   //no leak without the returns
 {
 	int	i;
 
 	i = 0;
 	while (i < data->philo_nb)
 	{
+		pthread_mutex_unlock(&data->fork[i]);
 		if (pthread_mutex_destroy(&data->fork[i]))
-			error("Mutex destoroy5");
+			return (error("Mutex destroy5"));
 		i++;
 	}
+	pthread_mutex_unlock(&data->death);
 	if (pthread_mutex_destroy(&data->death))
-		error("Mutex destroy1");
+		return (error("Mutex destroy1"));
+	pthread_mutex_unlock(&data->writing);
 	if (pthread_mutex_destroy(&data->writing))
-		error("Mutex destroy2");
+		return (error("Mutex destroy2"));
+	pthread_mutex_unlock(&data->meal_time);
 	if (pthread_mutex_destroy(&data->meal_time))
-		error("Mutex destroy3");
+		return (error("Mutex destroy3"));
+	pthread_mutex_unlock(&data->meal_update);
 	if (pthread_mutex_destroy(&data->meal_update))
-		error("Mutex destroy4");
-	return (1);
+		return (error("Mutex destroy4"));
+	return (0);
 }
 
 int	game_over(t_philo *philo, int code)
@@ -60,6 +65,7 @@ int	game_over(t_philo *philo, int code)
 	pthread_mutex_lock(&philo->data->death);
 	philo->data->dead = code;
 	pthread_mutex_unlock(&philo->data->death);
+	pthread_mutex_lock(&philo->data->writing);
 	if (code == -1)
 		printf("%ld %d %s\n", timediff(start), philo->id + 1, "died");
 	if (code == 1)

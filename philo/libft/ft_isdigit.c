@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:58 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/06/07 13:54:55 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:50:24 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return (1);
-	else
 		return (0);
+	else
+		return (1);
 }
 
-int	isdigit_check(char *sth)
+int	isdigit_check(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (sth[i])
+	while (s[i])
 	{
-		if (sth[i] < '0' && '9' < sth[i])
+		if (ft_isdigit(s[i]))
 			return (0);
 		i++;
 	}

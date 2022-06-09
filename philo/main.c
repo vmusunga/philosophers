@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 13:14:55 by vmusunga          #+#    #+#             */
-/*   Updated: 2022/06/07 13:34:56 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:09:01 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int	main(int ac, char **av)
 	if (!input_check(av))
 		return (0);
 	if (!init_struct(&data, av))
-		return (0);
+		return (destroy(&data));
+	// if (!mutex_init(&data))
+	// 	return (destroy(&data));
 	if (!philo_init(&data))
-		return (0);
+		return (destroy(&data));
 	if (!destroy(&data))
 		return (0);
 	if (data.philo)

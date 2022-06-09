@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:49:01 by vic               #+#    #+#             */
-/*   Updated: 2022/06/07 13:49:06 by vmusunga         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:08:17 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	mutex_init(t_data *data)
 		return (error("Malloc error"));
 	while (i < data->philo_nb)
 	{
-		pthread_mutex_init(&data->fork[i], NULL);
+		if (pthread_mutex_init(&data->fork[i], NULL))
+			return (error("Fork error"));
 		i++;
 	}
 	return (1);
@@ -75,15 +76,16 @@ int	init_struct(t_data *data, char **av)
 	if (av[5] && (ft_atoi(av[5]) > 0))
 		data->meals_nb = ft_atoi(av[5]);
 	data->start = current_time();
-	data->philo = malloc(sizeof(t_philo) * data->philo_nb + 1);
+	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
 	if (!data->philo)
 		return (error("Malloc error"));
-	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb + 1);
+	data->fork = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
 	if (!data->fork)
 		return (error("Malloc error"));
 	while (i < data->philo_nb)
 	{
-		pthread_mutex_init(&data->fork[i], NULL);
+		if (pthread_mutex_init(&data->fork[i], NULL))
+			return (error("Fork error"));
 		i++;
 	}
 	return (1);
@@ -104,15 +106,15 @@ int	philo_init(t_data *data)
 		data->philo[i].data = data;
 	}
 	i = -1;
-	while (++i < data->philo_nb)
+	while (++i < data->philo_nb )
 		if (pthread_create(&data->philo[i].philo_thread, NULL,
 				life, &data->philo[i]))
 			return (error("Thread error"));
 	if (!pepsi(data))
 		return (0);
-	i = 0;
-	while (i < data->philo_nb)
-		if (pthread_join(data->philo[i++].philo_thread, NULL))
+	i = -1;
+	while (++i < data->philo_nb)
+		if (pthread_join(data->philo[i].philo_thread, NULL))
 			return (error("Join thread error"));
 	return (1);
 }
